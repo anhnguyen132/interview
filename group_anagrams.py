@@ -3,6 +3,8 @@ from typing import List
 
 def groupAnagrams(strs: List[str]) -> List[List[str]]:
     """
+    https://leetcode.com/problems/group-anagrams/editorial/
+
     lower case English letters only => 26 letters
     use a hash map with key = tuple of size 26 where if a word has 2 letters 'a' then the first elem of the tuple = 2
     return list(d.values)
