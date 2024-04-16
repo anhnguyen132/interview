@@ -1,3 +1,6 @@
+# https://leetcode.com/problems/valid-palindrome/description/
+
+
 def isPalindrome(s: str) -> bool:
     # time O(n), space O(1)
     l, r = 0, len(s) - 1
