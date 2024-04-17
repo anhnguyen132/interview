@@ -1,3 +1,6 @@
+# https://leetcode.com/problems/decode-ways/description/
+
+
 def numDecodingsHelper(s: str, mem: dict) -> int:
     # base case
     if not s:
@@ -27,12 +30,45 @@ def numDecodings(s: str) -> int:
     Use memoization to reduce number of recursive calls
 
     Time O(n) Space O(n)
-
-    Bottom up approach: iteration
-    Go from right to left of string s, 1 char at a time
-    store result of
     """
-    return numDecodingsHelper(s, {})
+    # return numDecodingsHelper(s, {})
+
+    """
+    Bottom up approach: iteration
+    Go from left to right of string s, 1 char at a time
+    store result of prev and 2 prev chars
+    At each char, examine if it be decoded either
+    1) as a single digit
+    2) or be added to the previous char to make a 2-digit number <= 26
+    """
+    if s[0] == "0":
+        return 0
+
+    if len(s) == 1:
+        return 1
+
+    one_back = None
+    two_back = None
+    for i, c in enumerate(s):
+        cur = 0
+        if i == 0:
+            cur = 1
+
+        if i > 0:
+            if c != "0":
+                cur += one_back
+
+            two_digit = int(s[i - 1] + s[i])
+            if two_digit <= 26 and two_digit >= 10:
+                if two_back != None:
+                    cur += two_back
+                else:
+                    cur += 1
+        if i == len(s) - 1:
+            return cur
+
+        two_back = one_back
+        one_back = cur
 
 
 # Example 1:
@@ -58,3 +94,4 @@ print(numDecodings("1006") == 0)
 print(numDecodings("2206") == 1)
 print(numDecodings("2611") == 4)
 print(numDecodings("22611") == 6)
+print(numDecodings("10011") == 0)
