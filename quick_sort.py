@@ -5,7 +5,6 @@ def swap(a: List, l: int, r: int) -> None:
     a[l], a[r] = a[r], a[l]
 
 
-# a[r] = pivot
 def partition(a: List, l: int, r: int, pivot: int) -> None:
     while l <= r:
         while a[l] <= pivot and l <= r:
