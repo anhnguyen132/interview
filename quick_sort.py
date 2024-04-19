@@ -49,8 +49,6 @@ def quickSort(a: List) -> None:
         Have left, right pointers = 0, n - 2 moving inwards, swap a[left] with a[right] if a[left] > pivot and a[right] < pivot
     Keep doing this recursively on the 2 new partitions
     """
-    if not a or len(a) == 1:
-        return
     quickSortHelper(a, 0, len(a) - 1)
 
 
