@@ -48,6 +48,12 @@ def quickSort(a: List) -> None:
     Partition the array to 2 parts where left part contains all numbers <= pivot:
         Have left, right pointers = 0, n - 2 moving inwards, swap a[left] with a[right] if a[left] > pivot and a[right] < pivot
     Keep doing this recursively on the 2 new partitions
+
+    Time:
+    Each subarray is on avg half the size of the original arr
+    Takes O(n) time to partition each subarray
+    Best case = Avg time = O(nlogn)
+    Worst case = O(n^2) when repeatedly choosing pivot = min or max number in the array, i.e. when the original array is sorted (asc or desc)
     """
     quickSortHelper(a, 0, len(a) - 1)
 
