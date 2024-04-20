@@ -6,13 +6,13 @@ from typing import List
 def mergeSortedArrays(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
     """
     merge backwards. Going from right to left in nums1. Sort the arrays desc
+    Time O(m+n), Space O(1)
     """
     # start from the end of 2 arrays
     cur1, cur2 = m - 1, n - 1
 
     # iterate thru nums1 backward
     for i in range(m + n - 1, -1, -1):
-        # print(i, cur1, cur2, nums1)
         if cur1 >= 0 and cur2 >= 0:
             if nums1[cur1] <= nums2[cur2]:
                 nums1[i] = nums2[cur2]
