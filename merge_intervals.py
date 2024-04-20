@@ -18,9 +18,8 @@ def mergeIntervals(intervals: List[List[int]]) -> List[List[int]]:
         if not result or start > result[0][1]:
             result.append(interval)
         else:
-            prev_start, prev_end = result[-1]
-            merged_interval = [min(prev_start, start), max(prev_end, end)]
-            result[-1] = merged_interval
+            _, prev_end = result[-1]
+            result[-1][1] = max(prev_end, end)
 
     return result
 
