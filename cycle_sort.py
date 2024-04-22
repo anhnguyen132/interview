@@ -15,8 +15,8 @@ def cycleSort(nums: List[int]) -> int:
         1. When computing the correct positions, we have to make sure not to double-count the first element of the cycle.
         2. If there are duplicate elements present, when we try to move an element x to its correct position, that position might already be inhabited by an x. Simply swapping these would cause the algorithm to cycle indefinitely. Instead, we have to insert the element after any of its duplicates.
 
-    Time: O(n^2)
-    Space: O(n^2)
+    Time: O(n^3) (Wiki has O(n^2)?)
+    Space: O(1)
     """
     n = len(nums)
 
@@ -45,7 +45,7 @@ def cycleSort(nums: List[int]) -> int:
 
     writes = 0
     # dont need to consider the last elem since the array would have been sorted
-    for cycle_start in range(0, n - 1):
+    for cycle_start in range(n - 1):
         # find the intended position for nums[cycle_start] in sorted nums
         pos = findPos(cycle_start, nums[cycle_start])
 
