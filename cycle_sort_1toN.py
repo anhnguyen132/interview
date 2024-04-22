@@ -17,7 +17,8 @@ def cycleSort1toN(nums: List[int]) -> None:
     while i < n:
         cur_elem = nums[i]
         correctIndex = nums[i] - 1
-        if correctIndex != i:
+        # not correctIndex != i since it'd stuck in the loop if there are duplicates
+        if nums[correctIndex] != cur_elem:
             nums[i] = nums[correctIndex]
             nums[correctIndex] = cur_elem
         else:
@@ -62,6 +63,6 @@ a = [5, 1, 2, 3, 4]
 cycleSort1toN(a)
 print(a == [1, 2, 3, 4, 5])
 
-# a = [1, 2, 1, 3, 4]
-# cycleSort1toN(a)
-# print(a == [1, 1, 2, 3, 4])
+a = [1, 2, 1, 3, 4]
+cycleSort1toN(a)
+print(a)
