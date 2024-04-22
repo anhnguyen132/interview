@@ -8,6 +8,9 @@ def cycleSort1toN(nums: List[int]) -> None:
     cycle sort for special case where all elements are of value between 1 and n (all distinct values)
     => For an elem x, its index in the sorted array = x - 1
     i.e. index for 1 is 0, index for 2 is 1, etc.
+
+    Time: O(n)
+    Space: O(1)
     """
     n = len(nums)
     i = 0
