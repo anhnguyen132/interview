@@ -7,6 +7,9 @@ def maxSubarray(nums: List[int]) -> int:
     """
     start w 2 pointers: sliding window
     l, r = 0, 0
+    if nums[r] + cur_sum < nums[r]:
+        l = r
+        cur_sum = nums[r]
     => but l isnt really needed => use only r
 
     Time O(n), Space O(1)
