@@ -4,20 +4,16 @@ from typing import Optional
 def binarySearchHelper(nums: int, key: int, l: int, r: int) -> Optional[int]:
     if l > r:
         return None
-    if l == r:
-        if key == nums[l]:
-            return l
-        return None
 
     #### NOTE: NOT (r - l) // 2. Must add l ####
     mid = l + (r - l) // 2
+
     if key == nums[mid]:
         # find the smallest index where nums[i] == key
-        i = mid
-        while i >= 0 and nums[i] == key:
-            i -= 1
+        while mid >= 0 and nums[mid] == key:
+            mid -= 1
+        return mid + 1
 
-        return i + 1
     if key < nums[mid]:
         # recurse on left portion
         return binarySearchHelper(nums, key, l, mid - 1)
@@ -34,11 +30,26 @@ def binarySearch(nums: int, key: int) -> Optional[int]:
     """
     ########## Recursion ##########
     # Time: O(logN), Space: O(logN) bc of recursion stacks
-    return binarySearchHelper(nums, key, 0, len(nums) - 1)
+    # return binarySearchHelper(nums, key, 0, len(nums) - 1)
     ########## Recursion ##########
 
     ########## Iteration ##########
-    # TODO: implement iterative sol
+    # Time: O(logN), Space: O(1)
+    l, r = 0, len(nums) - 1
+    while l <= r:
+        mid = l + (r - l) // 2
+
+        if key == nums[mid]:
+            while mid >= 0 and nums[mid] == key:
+                mid -= 1
+            return mid + 1
+
+        if key < nums[mid]:
+            r = mid - 1
+
+        if key > nums[mid]:
+            l = mid + 1
+
     ########## Iteration ##########
 
 
