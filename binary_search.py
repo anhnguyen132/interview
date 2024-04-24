@@ -9,7 +9,7 @@ def binarySearchHelper(nums: int, key: int, l: int, r: int) -> Optional[int]:
             return l
         return None
 
-    # print(l, r)
+    #### NOTE: NOT (r - l) // 2. Must add l ####
     mid = l + (r - l) // 2
     if key == nums[mid]:
         # find the smallest index where nums[i] == key
