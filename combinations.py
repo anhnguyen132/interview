@@ -19,7 +19,11 @@ def generateAllCombinations(
     start: int, n: int, k: int, result: List[List[int]], curComb: List[int]
 ) -> None:
     if k == 0:
-        result.append(curComb[:])
+        """
+        rmb to append a COPY, not result.append(curComb) 
+        since curComb is passed by REF as it is a list
+        """
+        result.append(curComb[:]) 
         return
 
     for i in range(start, n + 1):
