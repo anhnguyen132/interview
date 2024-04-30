@@ -16,9 +16,29 @@ def generateParenthesis(n: int) -> List[str]:
     • call recursiveFunction()
     • “undo” that option
     """
-    # result = []
-    # generateAllParentesis(n, result, "", 0, 0)
-    # return result
+    result = []
+    # pass curStr by value using str
+    generateAllParentesis(n, result, "", 0, 0)
+    return result
+
+    # pass curStr by reference using a list (leetcode editorial)
+    answer = []
+
+    def backtracking(cur_string, left_count, right_count):
+        if len(cur_string) == 2 * n:
+            answer.append("".join(cur_string))
+            return
+        if left_count < n:
+            cur_string.append("(")
+            backtracking(cur_string, left_count + 1, right_count)
+            cur_string.pop()
+        if right_count < left_count:
+            cur_string.append(")")
+            backtracking(cur_string, left_count, right_count + 1)
+            cur_string.pop()
+
+    backtracking([], 0, 0)
+    return answer
 
     """
     Divide and conquor, DP
@@ -32,7 +52,7 @@ def generateParenthesis(n: int) -> List[str]:
         which is asymptotically bounded by O(C(n))
     Space O(C(n)) to store all subsols (memo space T(n) = Sum{1->n}{C(n)})
     """
-    return list(helper(n, {}))
+    # return list(helper(n, {}))
 
 
 def generateAllParentesis(
