@@ -7,7 +7,7 @@ def permute(nums: List[int]) -> List[List[int]]:
     """
     Backtracking. Keep track of a set used = set of all indices used so far to construct the current permutation
 
-    Time: O(n!)
+    Time: O(n * n!). There are n! permutation, each needs to be copied to the result array which takes O(n) time
     Space: O(n)
     """
     result = []
