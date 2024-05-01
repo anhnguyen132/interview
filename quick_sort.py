@@ -14,8 +14,8 @@ def partition(a: List, l: int, r: int, pivot: int) -> None:
 
         if l < r:
             swap(a, l, r)
-            l += 1
-            r -= 1
+            # l += 1
+            # r -= 1
 
     return l
 
