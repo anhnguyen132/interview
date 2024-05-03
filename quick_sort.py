@@ -8,8 +8,12 @@ def swap(a: List, l: int, r: int) -> None:
 def partition(a: List, l: int, r: int, pivot: int) -> None:
     # print(l, r, pivot, a)
     while l <= r:
+        # Need to check l <= r first to avoid l getting out of range
+        # while a[l] <= pivot and l <= r:
         while l <= r and a[l] <= pivot:
             l += 1
+
+        # while a[r] > pivot and l <= r:
         while l <= r and a[r] > pivot:
             r -= 1
 
