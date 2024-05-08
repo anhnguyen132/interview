@@ -35,8 +35,7 @@ def quickSelect(a: List[int], k: int) -> int:
 
 def quickSelectIterative(a: List[int], k: int, left: int, right: int) -> int:
     while left <= right:
-        pivotIndex = left
-        split = partition(a, left, right, pivotIndex)
+        split = partition(a, left, right, left)
         if k - 1 == split:
             return a[split]
 
@@ -47,8 +46,7 @@ def quickSelectIterative(a: List[int], k: int, left: int, right: int) -> int:
 
 
 def quickSelectRecursive(a: List[int], k: int, left: int, right: int) -> int:
-    pivotIndex = left
-    split = partition(a, left, right, pivotIndex)
+    split = partition(a, left, right, left)
 
     if k - 1 == split:
         return a[split]
@@ -107,4 +105,4 @@ print(quickSelect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10) == 10)
 print(quickSelect([i for i in range(10000)], 500) == 499)
 print(quickSelect([10000 - i for i in range(10000)], 500) == 500)
 print(quickSelect([i for i in range(100000)], 5000) == 4999)
-print(quickSelect([100000 - i for i in range(1000000)], 5000) == 5000)
+print(quickSelect([100000 - i for i in range(100000)], 5000) == 5000)
