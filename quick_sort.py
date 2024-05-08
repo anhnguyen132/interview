@@ -5,8 +5,13 @@ def swap(a: List, l: int, r: int) -> None:
     a[l], a[r] = a[r], a[l]
 
 
-def partition(a: List, l: int, r: int, pivot: int) -> None:
-    # print(l, r, pivot, a)
+def partition(a: List, left: int, right: int, pivotIndex: int) -> None:
+    pivot = a[pivotIndex]
+
+    # swap pivot to the end
+    swap(a, pivotIndex, right)
+
+    l, r = left, right - 1
     while l <= r:
         # Need to check l <= r first to avoid l getting out of range
         # while a[l] <= pivot and l <= r:
@@ -22,25 +27,19 @@ def partition(a: List, l: int, r: int, pivot: int) -> None:
             # l += 1
             # r -= 1
 
-    # return l
-    return r
+    # swap pivot back
+    swap(a, l, right)
+
+    return l
 
 
 def quickSortHelper(a: List, l: int, r: int) -> None:
     if l >= r:
         return
 
-    pivot = a[l]
-    # swap pivot w the last elem
-    # swap(a, l, r)
-
     # Partition the array to 2 parts where left part contains all numbers <= pivot
-    # returns the index splitting these 2 partitions
-    # split = partition(a, l, r - 1, pivot)
-    split = partition(a, l + 1, r, pivot)
-    # swap back pivot
-    # swap(a, split, r)
-    swap(a, split, l)
+    # returns the index splitting these 2 partitions (i.e. the index where the greater partition begins)
+    split = partition(a, l, r, l)
 
     # NOT (a, l, split)!!! Otherwise it'd fail if pivot = max number in a
     quickSortHelper(a, l, split - 1)
