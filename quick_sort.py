@@ -63,7 +63,10 @@ def quickSort(a: List) -> None:
     Best case = Avg time = O(nlogn)
     Worst case = O(n^2) when repeatedly choosing pivot = min or max number in the array, i.e. when the original array is sorted (asc or desc)
 
-    Space: O(logn) bc of the recursion stack. Can do iterative sol but would need a stack => Same space complexity.
+    Space: O(logn) bc of the recursion stack.
+        Can do iterative sol but would need a stack => Same space complexity.
+        Can't use just a loop bc want to work on BOTH partitions to sort them
+        (unlike quick select, only need to look into one partition)
     """
     quickSortHelper(a, 0, len(a) - 1)
 
