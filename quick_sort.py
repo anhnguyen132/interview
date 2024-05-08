@@ -39,6 +39,7 @@ def quickSortHelper(a: List, l: int, r: int) -> None:
     # split = partition(a, l, r - 1, pivot)
     split = partition(a, l + 1, r, pivot)
     # swap back pivot
+    # swap(a, split, r)
     swap(a, split, l)
 
     # NOT (a, l, split)!!! Otherwise it'd fail if pivot = max number in a
@@ -61,6 +62,8 @@ def quickSort(a: List) -> None:
     Takes O(n) time to partition each subarray
     Best case = Avg time = O(nlogn)
     Worst case = O(n^2) when repeatedly choosing pivot = min or max number in the array, i.e. when the original array is sorted (asc or desc)
+
+    Space: O(logn) bc of the recursion stack. Can do iterative sol but would need a stack => Same space complexity.
     """
     quickSortHelper(a, 0, len(a) - 1)
 
