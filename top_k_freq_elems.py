@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/top-k-frequent-elements/description/
 
-from typing import List
+from typing import List, Tuple, Dict
 from collections import Counter
 
 
@@ -48,7 +48,74 @@ def topKFrequent(nums: List[int], k: int) -> List[int]:
     Space: O(n)
     """
     # return sorted(topKFrequentHeap(nums, k))
-    return sorted(topKFrequentBucketSort(nums, k))
+    # return sorted(topKFrequentBucketSort(nums, k))
+    return topKFrequentQuickSelect(nums, k)
+
+
+def topKFrequentQuickSelect(nums: List[int], k: int) -> List[int]:
+    """
+    Uses quick select to find the top K freqs
+
+    Time: Avg O(n), Worst O(n^2)
+    Space: O(n)
+    """
+    n = len(nums)
+    if n < 2:
+        return nums
+
+    freq_map = Counter(nums)
+    elems = list(freq_map.keys())  # unique elements in nums
+    m = len(elems)  # number of unique elements in nums
+
+    left, right = 0, m - 1
+    while left <= right:
+        split1, split2 = partition3Ways(elems, freq_map, left, right, left)
+        if m - k < split1:
+            right = split1 - 1
+        elif m - k >= split2:
+            left = split2
+        else:
+            # m - k >= split1 and m - k < split2
+            return sorted(elems[m - k :])
+
+
+def partition3Ways(
+    nums: List[int], freq_map: Dict[int, int], left: int, right: int, pivotIndex: int
+) -> Tuple[int, int]:
+    """
+    Split nums into 3 parts using 3 pointers set initially to
+    l, cur, r = left, left, right
+
+    After partitioning:
+    nums[:l] = all elems having freq < pivot's freq (inclusive -> non-inclusive)
+    nums[l: cur] = elems having freq == pivot's freq
+    nums[cur: r] = elems having freq > pivot's freq
+
+    Return l, cur
+    """
+    pivot = nums[pivotIndex]
+    piv_freq = freq_map[pivot]
+
+    l, cur, r = left, left, right
+    while cur <= r:
+        cur_num = nums[cur]
+        cur_freq = freq_map[cur_num]
+        if cur_freq == piv_freq:
+            cur += 1
+        elif cur_freq < piv_freq:
+            swap(nums, l, cur)
+            l += 1
+            cur += 1
+        elif cur_freq > piv_freq:
+            swap(nums, cur, r)
+            r -= 1
+
+    return (l, cur)
+
+
+def swap(nums: List[int], l: int, r: int) -> None:
+    if l < r:
+        nums[l], nums[r] = nums[r], nums[l]
 
 
 def topKFrequentBucketSort(nums: List[int], k: int) -> List[int]:
@@ -66,7 +133,7 @@ def topKFrequentBucketSort(nums: List[int], k: int) -> List[int]:
     1) not n since freq can be n
     2) Use [[]] instead of [None] so that we won't overwrite elems having same freq count
     3) DO NOT use [[]] * (n+1) since that'd make a copy of a single object
-        => ""buckets[1] = 10 would result in [[10], [10], ...[10]]
+        => buckets[1] = 10 would result in [[10], [10], ...[10]]
     """
     buckets = [[] for _ in range(n + 1)]
 
@@ -115,7 +182,7 @@ def topKFrequentHeap(nums: List[int], k: int) -> List[int]:
     return [x for _, x in h]
 
 
-# print(topKFrequent(nums=[10, 4, -4, 6, 2, 4, -2, -4], k=2))
+# print(topKFrequent(nums=[1, 1, 1, 2, 2, 3], k=2))
 
 print(topKFrequent(nums=[1, 1, 1, 2, 2, 3], k=2) == [1, 2])
 print(topKFrequent(nums=[1], k=1) == [1])
