@@ -5,7 +5,6 @@ i.e. if two elements share the same key, their relative order in the output arra
 """
 
 from typing import List
-from collections import Counter
 
 
 def countingSort(a: List[int]) -> List[int]:

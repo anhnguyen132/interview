@@ -25,8 +25,9 @@ def topKFrequent(nums: List[int], k: int) -> List[int]:
     Time:
     1. O(N)
     2. For first k pairs: O(klogk) worst case
-        For the next N - k pairs, each has O(logk) pop time => (N-k)O(logk)
-        => Total = O(Nlogk)
+       For the next N - k pairs, each has O(logk) pop time => (N-k)O(logk)
+       => Total = O(klogk) + (N-k)O(logk)
+                = O(Nlogk)
     3. O(klogk)
     => Total time: O(N + Nlogk + klogk) = O(Nlogk)
 
@@ -77,6 +78,7 @@ def topKFrequentQuickSelect(nums: List[int], k: int) -> List[int]:
         else:
             # m - k >= split1 and m - k < split2
             return sorted(elems[m - k :])
+            # dont really need sorted for this prob but it's here for easier testing
 
 
 def partition3Ways(
