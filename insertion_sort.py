@@ -17,14 +17,16 @@ def insertionSort(a: List[int]) -> None:
     for i in range(1, n):
         cur_elem = a[i]
 
+        #### shift and insert ####
         # check elems to the left of i, shift them right 1 by 1 if they're > cur_elem
         j = i
         while j > 0 and a[j - 1] > cur_elem:
             a[j] = a[j - 1]
             j -= 1
 
-        # write cur_elem to its correct position (among all elems seen so far)
+        # insert cur_elem to its correct position (among all elems seen so far)
         a[j] = cur_elem
+        #### shift and insert ####
 
 
 a = [1, 4, 0, 3, 5, 2]
