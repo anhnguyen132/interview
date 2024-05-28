@@ -51,9 +51,10 @@ class MedianFinder:
     2. These 2 heaps size are roughly equal
 
     Time:
-        Each enqueue/dequeue in addNum is O(logn)
-        Each findMedian call is O(1)
-        => O(nlogn) ??????
+        In addNum: each number addition takes at most 2 pushes & 1 pop
+         => O(3logn) = O(logn)
+        In findMedian: each call is O(1)
+        Total = O(logn) + O(1) = O(logn)
     Space: O(n)
     """
 
