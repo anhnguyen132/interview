@@ -56,6 +56,28 @@ class MedianFinder:
         In findMedian: each call is O(1)
         Total = O(logn) + O(1) = O(logn)
     Space: O(n)
+
+    Follow up Qs:
+    1. If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
+    - we maintain HashMap<number,frequency> (keys are in range [0, 100])
+    - we also maintain total number of elements, so that median is just total-nums/2 th element from sorted array.
+    => For each addNum, update map & total number of elems => O(1)
+    - then we go over Map from 1-100 and count element, when we hit total-nums/2 th element , that is our median
+    => For each findMedian() call, need to go over at most 100 numbers
+    => O(100) = O(1)
+        Total time = O(1) + O(1) = O(1)
+        Space: O(100) for map + O(n) for elems = O(n)
+
+    2. If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
+    Does this mean that at any time findMedian is called, 99% of the current integers are in the range [0, 100]? Or is it not guaranteed (e.g. all nums outside of this range is given first, then findMedian is called)?
+
+    Assume that the 99% property is guaranteed whenever findMedian is called.
+        - Similar to sol to 1), just need to keep an extra bucket for numbers < 0 in the HashMap of freq (don't care about numbers > 100 since by definition of the median, it's at the 50 percentile meaning it has to be in range [0, 100]).
+        - For every call to addNum: update freq map and total num elems
+        - For each findMedian call: need to go over at most 101 buckets
+        => Total time = O(1) + O(1) = O(1)
+            Space: O(101) for map + O(n) for elems = O(n)
+
     """
 
     def __init__(self) -> None:
