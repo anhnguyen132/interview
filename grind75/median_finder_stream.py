@@ -23,7 +23,7 @@ class BinaryHeap:
         return len(self.heap)
 
     def __str__(self) -> str:
-        return str(self.heap)
+        return str([x * self.multiplier for x in self.heap])
 
     def push(self, num: int) -> None:
         heapq.heappush(self.heap, self.multiplier * num)
@@ -111,38 +111,39 @@ class MedianFinder:
         return (self.maxHeap.peek() + self.minHeap.peek()) / 2
 
 
-medianFinder = MedianFinder()
-medianFinder.addNum(1)  # arr = [1]
-medianFinder.addNum(2)  # arr = [1, 2]
-print(medianFinder.findMedian() == 1.5)  # return 1.5 (i.e., (1 + 2) / 2)
-medianFinder.addNum(3)  # arr[1, 2, 3]
-print(medianFinder.findMedian() == 2.0)  # return 2.0
+if __name__ == "__main__":
+    medianFinder = MedianFinder()
+    medianFinder.addNum(1)  # arr = [1]
+    medianFinder.addNum(2)  # arr = [1, 2]
+    print(medianFinder.findMedian() == 1.5)  # return 1.5 (i.e., (1 + 2) / 2)
+    medianFinder.addNum(3)  # arr[1, 2, 3]
+    print(medianFinder.findMedian() == 2.0)  # return 2.0
 
-medianFinder = MedianFinder()
-medianFinder.addNum(3)  # arr = [3]
-medianFinder.addNum(2)  # arr = [2, 3]
-print(medianFinder.findMedian() == 2.5)  # return 2.5 (i.e., (3 + 2) / 2)
-medianFinder.addNum(7)  # arr[2, 3, 7]
-print(medianFinder.findMedian() == 3.0)  # return 3.0
-medianFinder.addNum(4)  # arr[2, 3, 4, 7]
-print(medianFinder.findMedian() == 3.5)
+    medianFinder = MedianFinder()
+    medianFinder.addNum(3)  # arr = [3]
+    medianFinder.addNum(2)  # arr = [2, 3]
+    print(medianFinder.findMedian() == 2.5)  # return 2.5 (i.e., (3 + 2) / 2)
+    medianFinder.addNum(7)  # arr[2, 3, 7]
+    print(medianFinder.findMedian() == 3.0)  # return 3.0
+    medianFinder.addNum(4)  # arr[2, 3, 4, 7]
+    print(medianFinder.findMedian() == 3.5)
 
-# negative numbers
-medianFinder = MedianFinder()
-medianFinder.addNum(-3)  # arr = [-3]
-medianFinder.addNum(-2)  # arr = [-3, -2]
-print(medianFinder.findMedian() == -2.5)  # return -2.5 (i.e., (-3 + -2) / 2)
-medianFinder.addNum(-7)  # arr[-7, -3, -2]
-print(medianFinder.findMedian() == -3.0)
-medianFinder.addNum(-4)  # arr[-7, -4, -3, -2]
-print(medianFinder.findMedian() == -3.5)
+    # negative numbers
+    medianFinder = MedianFinder()
+    medianFinder.addNum(-3)  # arr = [-3]
+    medianFinder.addNum(-2)  # arr = [-3, -2]
+    print(medianFinder.findMedian() == -2.5)  # return -2.5 (i.e., (-3 + -2) / 2)
+    medianFinder.addNum(-7)  # arr[-7, -3, -2]
+    print(medianFinder.findMedian() == -3.0)
+    medianFinder.addNum(-4)  # arr[-7, -4, -3, -2]
+    print(medianFinder.findMedian() == -3.5)
 
-# mixed neg & pos nums
-medianFinder = MedianFinder()
-medianFinder.addNum(-3)  # arr = [-3]
-medianFinder.addNum(2)  # arr = [-3, 2]
-print(medianFinder.findMedian() == -0.5)
-medianFinder.addNum(-7)  # arr[-7, -3, 2]
-print(medianFinder.findMedian() == -3.0)
-medianFinder.addNum(4)  # arr[-7, -3, 2, 4]
-print(medianFinder.findMedian() == -0.5)
+    # mixed neg & pos nums
+    medianFinder = MedianFinder()
+    medianFinder.addNum(-3)  # arr = [-3]
+    medianFinder.addNum(2)  # arr = [-3, 2]
+    print(medianFinder.findMedian() == -0.5)
+    medianFinder.addNum(-7)  # arr[-7, -3, 2]
+    print(medianFinder.findMedian() == -3.0)
+    medianFinder.addNum(4)  # arr[-7, -3, 2, 4]
+    print(medianFinder.findMedian() == -0.5)
