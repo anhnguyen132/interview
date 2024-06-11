@@ -33,7 +33,7 @@ def medianSlidingWindow(nums: List[int], k: int) -> List[float]:
         2. Balanced number of valid elems in the 2 heaps
     
     However, it's inefficient to remove an elem whenever the window slides
-    => keep it in the heaps, but add it to a Hash table of invalidated elems and their # of occurences. When it comes to the top of heap, remove it
+    => keep it in the heaps, but add it to a Hash table of invalidated elems and their # of occurences. When it comes to the top of heap, remove it (i.e. does lazy removal whenever there is a heap pop)
     => keep count of validated elems for both heaps to keep the heaps balanced.
 
     Time: 
@@ -77,14 +77,6 @@ def medianSlidingWindow(nums: List[int], k: int) -> List[float]:
             min_heap.pop()
             invalid[min_heap_top] -= 1
             min_heap_top = None if min_heap.isEmpty() else min_heap.peek()
-
-        # if max_heap_top and max_heap_top in invalid and invalid[max_heap_top] > 0:
-        #     max_heap.pop()
-        #     invalid[max_heap_top] -= 1
-
-        # if min_heap_top and min_heap_top in invalid and invalid[min_heap_top] > 0:
-        #     min_heap.pop()
-        #     invalid[min_heap_top] -= 1
 
     for i in range(n):
         # insert in number to the window
