@@ -5,11 +5,11 @@ import heapq
 
 def kClosest(points: List[List[int]], k: int) -> List[List[int]]:
 
-    def distance(p1: List[int], p2: List[int]) -> float:
+    def squared_distance(p1: List[int], p2: List[int]) -> float:
         # calculate the Euclidean distance btw 2 points p1, p2
         x1, y1 = p1
         x2, y2 = p2
-        return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** (1/2)
+        return ((x1 - x2) ** 2 + (y1 - y2) ** 2)
     
     origin = [0, 0]
 
@@ -18,12 +18,18 @@ def kClosest(points: List[List[int]], k: int) -> List[List[int]]:
 
     Keep pushing (distance, point) to this max heap, maintaining size = k
     i.e. if size = k + 1, pop from this heap
+
+    Time: 
+        Each push to heap = O(logk). Pushes O(n) times
+        Each pop = O(logk). Pop O(n - k) times
+        => Total time = O(nlogk)
+    Space: O(k) for the heap
     """
 
     # calculate distance from the origin for each point and store in a max heap 
     distances = [] # format of each node = (dist, [x,y])
     for p in points:
-        heapq.heappush(distances, tuple([-1 * distance(p, origin), p]))
+        heapq.heappush(distances, tuple([-1 * squared_distance(p, origin), p]))
         if len(distances) == k + 1:
             heapq.heappop(distances)
 
