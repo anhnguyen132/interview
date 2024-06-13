@@ -40,6 +40,45 @@ def print_ll(head: ListNode):
 
 def mergeKLists(lists: List[Optional[ListNode]]) -> Optional[ListNode]:
     """
+    Approach 2: Divide & Conquor
+    Divide the work until there are only 2 ll, then we can use merge sort
+
+    Time: O(nlogk)
+    Space: O(logk) for the recursive calls
+    """
+
+    def mergeSort(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        if not l1:
+            return l2
+        if not l2:
+            return l1
+        
+        dummy = ListNode()
+        cur = dummy
+
+        while l1 and l2:
+            if l1.val <= l2.val:
+                cur.next = l1
+                l1 = l1.next
+            else:
+                cur.next = l2
+                l2 = l2.next
+            cur = cur.next
+        
+        cur.next = l1 or l2
+        
+        return dummy.next
+
+    k = len(lists)
+    if k == 0:
+        return None
+    if k == 1:
+        return lists[0]
+    
+    return mergeSort(mergeKLists(lists[: k // 2]), mergeKLists(lists[k // 2:]))
+
+
+    """
     Approach 1: Add one by one + Use a min HEAP to get the min val among all heads for each add
 
     Time:
@@ -54,38 +93,33 @@ def mergeKLists(lists: List[Optional[ListNode]]) -> Optional[ListNode]:
     Space:
         O(k) auxillary space for the heap
     """
-    import heapq
-    min_heap = []
-    dummy = ListNode()
-    cur = dummy
+    # import heapq
+    # min_heap = []
+    # dummy = ListNode()
+    # cur = dummy
 
-    # for ll in lists:
-    for i, ll in enumerate(lists):
-        if ll:
-            heapq.heappush(min_heap, ll)
+    # # for ll in lists:
+    # for i, ll in enumerate(lists):
+    #     if ll:
+    #         heapq.heappush(min_heap, ll)
 
-            # use this if ListNode has no __lt__ method defined
-            # heapq.heappush(min_heap, (ll.val, i))
+    #         # use this if ListNode has no __lt__ method defined
+    #         # heapq.heappush(min_heap, (ll.val, i))
     
-    while min_heap:
-        min_head = heapq.heappop(min_heap)
-        # _, i = heapq.heappop(min_heap)
-        # min_head = lists[i]
-        # lists[i] = min_head.next
-        if min_head.next:
-            heapq.heappush(min_heap, min_head.next)
-            # heapq.heappush(min_heap, (min_head.next.val, i))
-        cur.next = min_head
-        cur = min_head
+    # while min_heap:
+    #     min_head = heapq.heappop(min_heap)
+    #     # _, i = heapq.heappop(min_heap)
+    #     # min_head = lists[i]
+    #     # lists[i] = min_head.next
+    #     if min_head.next:
+    #         heapq.heappush(min_heap, min_head.next)
+    #         # heapq.heappush(min_heap, (min_head.next.val, i))
+    #     cur.next = min_head
+    #     cur = min_head
     
-    return dummy.next
+    # return dummy.next
+    #### Approach 1: Add one by one + Use a min HEAP ####
 
-
-
-
-    """
-    Approach 2: Divide and Conquer
-    """
 
 # basic tests
 lsts = [[1,4,5],[1,3,4],[2,6]]
