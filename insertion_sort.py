@@ -15,22 +15,25 @@ def insertionSort(a: List[int]) -> None:
     """
     n = len(a)
     for i in range(1, n):
-        # cur_elem = a[i]
+        cur_elem = a[i]
 
-        # #### shift and insert ####
-        # # check elems to the left of i, shift them right 1 by 1 if they're > cur_elem
+        #### shift and insert ####
+        # check elems to the left of i, shift them right 1 by 1 if they're > cur_elem
+        j = i
+        while j > 0 and a[j - 1] > cur_elem:
+            a[j] = a[j - 1]
+            j -= 1
+
+        # insert cur_elem to its correct position (among all elems seen so far)
+        a[j] = cur_elem
+        #### shift and insert ####
+
+        # don't swap at each number, rather move the number right then insert the cur number at the right position => less writes
         # j = i
-        # while j > 0 and a[j - 1] > cur_elem:
-        #     a[j] = a[j - 1]
+        # while j > 0 and a[j-1] > a[j]:
+        #     swap(a, j, j - 1) 
         #     j -= 1
 
-        # # insert cur_elem to its correct position (among all elems seen so far)
-        # a[j] = cur_elem
-        # #### shift and insert ####
-        j = i
-        while j > 0 and a[j-1] > a[j]:
-            swap(a, j, j - 1)
-            j -= 1
 
 def swap(a: List[int], i: int, j: int) -> None:
     n = len(a)
