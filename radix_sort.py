@@ -14,30 +14,29 @@ def countingSort(a: List[str], d: int) -> List[int]:
     if n < 2:
         return [int(x) for x in a]
 
-    # get the range of a
-    start, end = int(min(a)), int(max(a))
+    # dealing with digits in decimal system
+    start, end = 0, 9 
     counts = [0 for _ in range(start, end + 1)]  # NEVER do [0] * (end - start)
     output = [None for _ in range(n)]  # NEVER do [None] * n
 
-    # can get an elem x in a from index i of counts by: x = i + start
+    # get counts of the d-th digit for elems in a, 
+    # x is a string
     for x in a:
-        counts[int(x) - start] += 1
+        counts[int(x[d])] += 1
 
-    k = len(counts)
+    k = 10 # bc of the decimal system, all d-th digits are in [0,9] inclusive
     #### OG Counting sort algo: STABLE ####
     for i in range(1, k):
         counts[i] += counts[i - 1]
 
     # for x in a: # Need to go right to left to preserve o.g. order of items (stability)
     for x in reversed(a):
-        x = int(x)
-        i = x - start
-        count = counts[i]
-        output[count - 1] = x
-        counts[i] -= 1
+        dth_digit = int(x[d])
+        count = counts[dth_digit]
+        output[count - 1] = int(x)
+        counts[dth_digit] -= 1
 
     #### OG Counting sort algo: STABLE ####
-
     return output
 
 
@@ -73,16 +72,26 @@ def radixSortHelper(a: List[int]) -> List[int]:
     d = len(str(max_val))
 
     # LSD: sort from least significant bit
+    # output = a
+    # for i in range(d - 1, -1, -1):
+    #     output_str = [
+    #         str(x) if len(str(x)) == d else f'{"0" * (d - len(str(x)))}{str(x)}'
+    #         for x in output
+    #     ]
+    #     output = countingSort(output_str, i)
+
     output = a
     for i in range(d - 1, -1, -1):
+        # add leading 0s to make all numbers having same number of digits
+        # e.g. [10, 999] becomes ["010", "999"]
         output_str = [
             str(x) if len(str(x)) == d else f'{"0" * (d - len(str(x)))}{str(x)}'
             for x in output
         ]
         output = countingSort(output_str, i)
 
-    return output
 
+    return output
 
 # basic tests
 print(radixSort([5, 2, 3, 1]) == [1, 2, 3, 5])

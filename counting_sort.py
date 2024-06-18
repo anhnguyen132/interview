@@ -22,6 +22,7 @@ def countingSort(a: List[int]) -> List[int]:
     counts = [0 for _ in range(start, end + 1)]  # NEVER do [0] * (end - start)
     output = [None for _ in range(n)]  # NEVER do [None] * n
 
+    # get counts of the elems in a, 
     # can get an elem x in a from index i of counts by: x = i + start
     for x in a:
         counts[x - start] += 1
@@ -42,6 +43,7 @@ def countingSort(a: List[int]) -> List[int]:
     #### Anh's variant from the OG algo: NOT STABLE ####
 
     #### OG Counting sort algo: STABLE ####
+    # add counts of prev elems
     for i in range(1, k):
         counts[i] += counts[i - 1]
 
