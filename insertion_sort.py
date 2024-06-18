@@ -9,24 +9,33 @@ def insertionSort(a: List[int]) -> None:
 
     Time:
         Best case: O(n) (already sorted)
-        Worst case: O(n^2) (sorted in DEC order)
+        Worst case: O(n^2) (sorted in DESC order)
         Avg case: O(n^2)
     Space: O(1)
     """
     n = len(a)
     for i in range(1, n):
-        cur_elem = a[i]
+        # cur_elem = a[i]
 
-        #### shift and insert ####
-        # check elems to the left of i, shift them right 1 by 1 if they're > cur_elem
+        # #### shift and insert ####
+        # # check elems to the left of i, shift them right 1 by 1 if they're > cur_elem
+        # j = i
+        # while j > 0 and a[j - 1] > cur_elem:
+        #     a[j] = a[j - 1]
+        #     j -= 1
+
+        # # insert cur_elem to its correct position (among all elems seen so far)
+        # a[j] = cur_elem
+        # #### shift and insert ####
         j = i
-        while j > 0 and a[j - 1] > cur_elem:
-            a[j] = a[j - 1]
+        while j > 0 and a[j-1] > a[j]:
+            swap(a, j, j - 1)
             j -= 1
 
-        # insert cur_elem to its correct position (among all elems seen so far)
-        a[j] = cur_elem
-        #### shift and insert ####
+def swap(a: List[int], i: int, j: int) -> None:
+    n = len(a)
+    if i in range(n) and j in range(n):
+        a[i], a[j] = a[j], a[i]
 
 
 a = [1, 4, 0, 3, 5, 2]
