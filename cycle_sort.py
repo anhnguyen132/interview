@@ -22,18 +22,21 @@ def cycleSort(nums: List[int]) -> int:
 
     def findPos(cycle_start: int, elem: int):
         """
-        find the intended position for elem in sorted nums
+        find the intended position for elem in sorted nums by counting the number of elems that are smaller than elem
         Assume all elems to the left of cycle_start have the correct sorted numbers
         """
         # Find the index to put elem
         pos = cycle_start
         # not nums[pos] <= elem bc want to make sure all elems with same value will result in the sam pos value
+        # note: start from cycle_start + 1 (bc of 0-indexing) bc want to count num elems > elem. E.g. if there is None, and cycle_start = 0, then pos = 0 
         for i in range(cycle_start + 1, n):
             if nums[i] < elem:
                 pos += 1
 
         # if item is already at its intended position, skip the cycle
         # do this before checking duplicates bc want to make sure all elems with same value will result in the sam pos value
+        # dont bypass duplicates here bc want to be able to CONSISTENTLY increment cycle start whenever an elem's intended pos is at cycle start. 
+        # No need to worry about dups since if cycle_start is incremented, dups will naturally take on the next index (since we start the search for intended pos from cycle_start (not from 0)) 
         if pos == cycle_start:
             return cycle_start
 
