@@ -22,7 +22,7 @@ def cycleSort(nums: List[int]) -> int:
 
     def findPos(cycle_start: int, elem: int):
         """
-        find the intended position for nums[cycle_start] in sorted nums
+        find the intended position for elem in sorted nums
         Assume all elems to the left of cycle_start have the correct sorted numbers
         """
         # Find the index to put elem
@@ -46,32 +46,30 @@ def cycleSort(nums: List[int]) -> int:
     writes = 0
     # dont need to consider the last elem since the array would have been sorted
     for cycle_start in range(n - 1):
-        # find the intended position for nums[cycle_start] in sorted nums
-        pos = findPos(cycle_start, nums[cycle_start])
+        # the elem that is being considered for rotating 
+        cur_elem = nums[cycle_start]
 
-        # if item is already at its intended position, skip the cycle
-        if pos == cycle_start:
-            continue
-
-        # update the current elem to find its intended position in sorted nums
-        cur_elem = nums[pos]
-        nums[pos] = nums[cycle_start]
-        writes += 1
-
-        # repeat the cycle until we find the elem in nums where its intended position is cycle_start
-        while pos != cycle_start:
+        while True:
+            # find the intended position for cur_elem in sorted nums
             pos = findPos(cycle_start, cur_elem)
 
-            # put cur_elem to its intended position & update the current elem
+            # if item is already at its intended position, skip the cycle
+            if pos == cycle_start:
+                # need to check this in case there is a displaced number y that needs to be put back
+                if nums[pos] != cur_elem:
+                    nums[pos] = cur_elem
+                    writes += 1
+                break
+
+            # write cur_elem to its intended position
+            # also "save" the number y (the number that's inhabiting this pos position). We'll need to find y's intended position to put it back to the array
             nums[pos], cur_elem = cur_elem, nums[pos]
             writes += 1
 
+            # repeat the cycle until we find the elem in nums where its intended position is cycle_start
+
     return writes
 
-
-# a = [1, 2, 2, 2, 1, 2, 1]
-# print(cycleSort(a))
-# print(a)
 
 a = [3, 2, 4, 5, 1]
 print(cycleSort(a) == 4)

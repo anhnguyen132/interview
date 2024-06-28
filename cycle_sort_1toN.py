@@ -5,7 +5,7 @@ from typing import List
 
 def cycleSort1toN(nums: List[int]) -> None:
     """
-    cycle sort for special case where all elements are of value between 1 and n (all distinct values)
+    cycle sort for special case where all elements are of value between 1 and n (all DISTINCT values and array has all values in this range (no missing val))
     => For an elem x, its index in the sorted array = x - 1
     i.e. index for 1 is 0, index for 2 is 1, etc.
 
@@ -14,15 +14,18 @@ def cycleSort1toN(nums: List[int]) -> None:
     """
     n = len(nums)
     i = 0
+    cur_elem = nums[i]
     while i < n:
-        cur_elem = nums[i]
-        correctIndex = nums[i] - 1
-        # not correctIndex != i since it'd stuck in the loop if there are duplicates
+        correctIndex = cur_elem - 1
         if nums[correctIndex] != cur_elem:
-            nums[i] = nums[correctIndex]
-            nums[correctIndex] = cur_elem
+            # write cur_elem to its correct index
+            # but "save" the number currently occupies this index first
+            nums[correctIndex], cur_elem = cur_elem, nums[correctIndex]
         else:
             i += 1
+            if i < n:
+                cur_elem = nums[i]
+
 
     # n = len(nums)
     # # writes = 0
@@ -50,7 +53,6 @@ def cycleSort1toN(nums: List[int]) -> None:
 
     #     # return writes
 
-
 a = [3, 2, 4, 5, 1]
 cycleSort1toN(a)
 print(a == [1, 2, 3, 4, 5])
@@ -63,6 +65,6 @@ a = [5, 1, 2, 3, 4]
 cycleSort1toN(a)
 print(a == [1, 2, 3, 4, 5])
 
-a = [1, 2, 1, 3, 4]
+a = [1, 2, 5, 3, 4]
 cycleSort1toN(a)
-print(a)
+print(a == [1,2,3,4,5])
