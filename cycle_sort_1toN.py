@@ -12,46 +12,37 @@ def cycleSort1toN(nums: List[int]) -> None:
     Time: O(n)
     Space: O(1)
     """
+    # a = [3, 2, 4, 5, 1]
     n = len(nums)
     i = 0
-    cur_elem = nums[i]
+    """
+    Using nums[i] instead of cur_elem will increase #writes, but it will result in dups elem being at the indexes that are not x - 1
+    => useful for finding dups problems. (e.g. 442. Find All Duplicates in an Array)
+    """
+    # cur_elem = nums[i]
     while i < n:
-        correctIndex = cur_elem - 1
-        if nums[correctIndex] != cur_elem:
+        # correctIndex = cur_elem - 1
+        correctIndex = nums[i] - 1
+        # not correctIndex != i since it'd stuck in the loop if there are duplicates. Also i is for the start of cycle, wouldnt change in the whole cycle
+        # if nums[correctIndex] != cur_elem:
+        if nums[correctIndex] != nums[i]:
             # write cur_elem to its correct index
             # but "save" the number currently occupies this index first
-            nums[correctIndex], cur_elem = cur_elem, nums[correctIndex]
+            # nums[correctIndex], cur_elem = cur_elem, nums[correctIndex]
+            nums[correctIndex], nums[i] = nums[i], nums[correctIndex]
         else:
             i += 1
-            if i < n:
-                cur_elem = nums[i]
+            # if i < n:
+            #     cur_elem = nums[i]
 
 
-    # n = len(nums)
-    # # writes = 0
+# a = [10,2,5,10,9,1,1,4,3,7]
+# cycleSort1toN(a)
+# print(a)
 
-    # for cycle_start in range(n - 1):
-    #     # find the intended position for nums[cycle_start] in sorted nums
-    #     pos = nums[cycle_start] - 1
-
-    #     # if item is already at its intended position, skip the cycle
-    #     if pos == cycle_start:
-    #         continue
-
-    #     # update the current elem to find its intended position in sorted nums
-    #     cur_elem = nums[pos]
-    #     nums[pos] = nums[cycle_start]
-    #     # writes += 1
-
-    #     # repeat the cycle until we find the elem in nums where its intended position is cycle_start
-    #     while pos != cycle_start:
-    #         pos = cur_elem - 1
-
-    #         # put cur_elem to its intended position & update the current elem
-    #         nums[pos], cur_elem = cur_elem, nums[pos]
-    #         # writes += 1
-
-    #     # return writes
+# a = [4,3,2,7,8,2,3,1]
+# cycleSort1toN(a)
+# print(a)
 
 a = [3, 2, 4, 5, 1]
 cycleSort1toN(a)
