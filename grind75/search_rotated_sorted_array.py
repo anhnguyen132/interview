@@ -42,20 +42,20 @@ def search(nums: List[int], target: int) -> int:
     return -1
 
 
-# print(search([4, 5, 6, 7, 0, 1, 2], 0) == 4)
-# print(search([4, 5, 6, 7, 0, 1, 2], 3) == -1)
-# print(search([1], 0) == -1)
-# print(search([0, 1, 2, 4, 5, 6, 8], 0) == 0)
-# print(search([0, 1, 2, 4, 5, 6, 8], 8) == 6)
-# print(search([4, 5, 6, 7, 0, 1, 2], 4) == 0)
-# print(search([4, 5, 6, 7, 0, 1, 2], 2) == 6)
-# print(search([4, 8], 4) == 0)
-# print(search([4, 8], 8) == 1)
-# print(search([8, 4], 8) == 0)
-# print(search([8, 4], 4))
-# print(search([8, 4], -10) == -1)
-# print(search([1, 2, 4, 5, 6, 7, 0], 2) == 1)
-# print(search([6, 7, 0, 1, 2, 4, 5], 2) == 4)
+print(search([4, 5, 6, 7, 0, 1, 2], 0) == 4)
+print(search([4, 5, 6, 7, 0, 1, 2], 3) == -1)
+print(search([1], 0) == -1)
+print(search([0, 1, 2, 4, 5, 6, 8], 0) == 0)
+print(search([0, 1, 2, 4, 5, 6, 8], 8) == 6)
+print(search([4, 5, 6, 7, 0, 1, 2], 4) == 0)
+print(search([4, 5, 6, 7, 0, 1, 2], 2) == 6)
+print(search([4, 8], 4) == 0)
+print(search([4, 8], 8) == 1)
+print(search([8, 4], 8) == 0)
+print(search([8, 4], 4) == 1)
+print(search([8, 4], -10) == -1)
+print(search([1, 2, 4, 5, 6, 7, 0], 2) == 1)
+print(search([6, 7, 0, 1, 2, 4, 5], 2) == 4)
 
 
 def searchDups(nums: List[int], target: int) -> int:
