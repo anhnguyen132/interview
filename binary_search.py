@@ -37,7 +37,8 @@ def binarySearch(nums: int, key: int) -> Optional[int]:
     # Time: O(logN), Space: O(1)
     l, r = 0, len(nums) - 1
     while l <= r:
-        mid = l + (r - l) // 2
+        # if use (l+r) / 2 can cause an overflow bug if use Java or C
+        mid = l + (r - l) // 2 
 
         if key == nums[mid]:
             while mid >= 0 and nums[mid] == key:
@@ -45,6 +46,7 @@ def binarySearch(nums: int, key: int) -> Optional[int]:
             return mid + 1
 
         if key < nums[mid]:
+            # another ver to support l and r meeting at termination: r = mid (also while loop cond. is while l < r). Prob: First Bad Version
             r = mid - 1
 
         if key > nums[mid]:

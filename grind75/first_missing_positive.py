@@ -3,43 +3,73 @@ from typing import List
 
 
 def firstMissingPositive(nums: List[int]) -> int:
+    n = len(nums)
+
     """
     using linear-time cycle sort
 
     Time: O(n)
     Space O(1)
     """
-    n = len(nums)
-    i = 0
+    # i = 0
 
-    while i < n:
-        cur_elem = nums[i]
-        if cur_elem > 0 and cur_elem <= n:
-            correctIndex = cur_elem - 1
-            if cur_elem != nums[correctIndex]:
-                nums[i] = nums[correctIndex]
-                nums[correctIndex] = cur_elem
+    # while i < n:
+    #     cur_elem = nums[i]
+    #     if cur_elem > 0 and cur_elem <= n:
+    #         correctIndex = cur_elem - 1
+    #         if cur_elem != nums[correctIndex]:
+    #             nums[i] = nums[correctIndex]
+    #             nums[correctIndex] = cur_elem
+    #         else:
+    #             i += 1
+    #     else:
+    #         i += 1
+
+    # for i, x in enumerate(nums):
+    #     if i != x - 1:
+    #         return i + 1
+
+    # return n + 1
+
+    """
+    index as hash key (i.e. Array as a hash map with hash key = index)
+    Iterate thru the list, marking any number <= 0 as 1, keeping a bool has_one to indicate if the array contains 1
+    If not has_one, return 1
+    else iterate thru the array again, if an elem 0 < x < n, mark nums[x] = -1. if x == n, mark nums[0] = -1
+    Iterate thru the array again. Using the array as a hashmap with index as key, value < 0 at index i is < 0 if there is value in in array. Iterate from i = 2 to n-1, if nums[i] > 0, return i. If nums[0] > 0, return n
+
+    Time Iterate thru the  array 3 times => O(3n) = O(n)
+    Space O(1)
+    """
+    # 1. replace all elems x <= 0 or > n with n + 1
+    # 2. then for each elem x <= n, mark nums[x] = -1 * abs(nums[x]), 
+    # except for when x = n, mark nums[0] = -1 * abs(nums[0])
+    # 3. Iterate thru the array, if nums[i] > 0, return i 
+    # if i == 0, return n
+    # else return n + 1
+
+    for i in range(n):
+        if nums[i] <= 0 or nums[i] > n:
+            nums[i] = n + 1
+    
+    for i in range(n):
+        x = abs(nums[i])
+        if x <= n:
+            if x == n:
+                nums[0] = -1 * abs(nums[0])
             else:
-                i += 1
-        else:
-            i += 1
+                nums[x] = -1 * abs(nums[x])
 
-    for i, x in enumerate(nums):
-        if i != x - 1:
-            return i + 1
-
+    for i in range(1,n):
+        if nums[i] > 0:
+            if i > 0:
+                return i
+            
+    if nums[0] > 0:
+        return n
+    
     return n + 1
 
-    # """
-    # index as hash key (i.e. Array as a hash map with hash key = index)
-    # Iterate thru the list, marking any number <= 0 as 1, keeping a bool has_one to indicate if the array contains 1
-    # If not has_one, return 1
-    # else iterate thru the array again, if an elem 0 < x < n, mark nums[x] = -1. if x == n, mark nums[0] = -1
-    # Iterate thru the array again. Using the array as a hashmap with index as key, value < 0 at index i is < 0 if there is value in in array. Iterate from i = 2 to n-1, if nums[i] > 0, return i. If nums[0] > 0, return n
-
-    # Time Iterate thru the  array 3 times => O(3n) = O(n)
-    # Space O(1)
-    # """
     # n = len(nums)
     # has_one = False
     # for i, x in enumerate(nums):
