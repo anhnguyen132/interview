@@ -84,6 +84,19 @@ class BST:
                 cur = cur.right
         return (None, None)
 
+    def get_height(self) -> int:
+        """
+        height of a tree = length of the longest path from root to a leaf node
+        For example:
+            A tree that has only 1 node has height = 0
+        """
+        def height(u: Optional[Node]) -> int:
+            # if u is None or is a leaf node
+            if not u or (not u.left and not u.right):
+                return 0
+            return 1 + max(height(u.left), height(u.right))
+        
+        return height(self.root)
     ##################################
     ##  Tree Traversal Recursively  ##
     ##################################
@@ -191,7 +204,6 @@ class BST:
         else: 
             parent.right = v
 
-
     def delete(self, data):
         """
         Delete node with value = data from BST
@@ -242,6 +254,10 @@ if __name__ == "__main__":
     lst = [22, 9, 34, 18, 3]
     bst = constructBST(lst)
     if bst:
+        print(bst.traverse_preorder() == "22 9 3 18 34")
+        print(bst.traverse_inorder() == "3 9 18 22 34")
+        print(bst.traverse_postorder() == "3 18 9 34 22")
+
         par, u = bst.get_min()
         print(f'{par.data == 9, u.data == 3}')
         par, u = bst.get_max()
@@ -259,9 +275,7 @@ if __name__ == "__main__":
         par, u = bst.search(18)
         print(f'{par.data == 9}, {u.data == 18}')
 
-        print(bst.traverse_preorder() == "22 9 3 18 34")
-        print(bst.traverse_inorder() == "3 9 18 22 34")
-        print(bst.traverse_postorder() == "3 18 9 34 22")
+        print(bst.get_height() == 2)
 
         """
         delete test cases:
@@ -296,6 +310,7 @@ if __name__ == "__main__":
         bst.delete(9)
         print(bst.traverse_preorder() == "22 3 34")
         print(bst.traverse_inorder() == "3 22 34")
+        print(bst.get_height() == 1)
 
         # 4.3.1 u is the root w 2 children: v is u's right child
         bst.delete(22)
@@ -306,6 +321,10 @@ if __name__ == "__main__":
     lst = [6,8,2,4,1,3,9]
     bst = constructBST(lst)
     if bst:
+        print(bst.traverse_preorder() == "6 2 1 4 3 8 9")
+        print(bst.traverse_inorder() == "1 2 3 4 6 8 9")
+        print(bst.traverse_postorder() == "1 3 4 2 9 8 6")
+
         par, u = bst.get_min()
         print(f'{par.data == 2, u.data == 1}')
         par, u = bst.get_max()
@@ -320,9 +339,7 @@ if __name__ == "__main__":
         par, u = bst.search(3)
         print(f'{par.data == 4}, {u.data == 3}')
 
-        print(bst.traverse_preorder() == "6 2 1 4 3 8 9")
-        print(bst.traverse_inorder() == "1 2 3 4 6 8 9")
-        print(bst.traverse_postorder() == "1 3 4 2 9 8 6")
+        print(bst.get_height() == 3)
         
         print("DELETE tests")
         # 2. u has 1 child: right
@@ -346,6 +363,10 @@ if __name__ == "__main__":
     lst = [20,8,4,12,10,14] # root only has left child
     bst = constructBST(lst)
     if bst:
+        print(bst.traverse_preorder() == "20 8 4 12 10 14")
+        print(bst.traverse_inorder() == "4 8 10 12 14 20")
+        print(bst.traverse_postorder() == "4 10 14 12 8 20")
+
         par, u = bst.get_min()
         print(f'{par.data == 8, u.data == 4}')
         par, u = bst.get_max() # u is root
@@ -357,9 +378,7 @@ if __name__ == "__main__":
         par, u = bst.search(20) # data in root
         print(f'{par == None}, {u.data == 20}')
 
-        print(bst.traverse_preorder() == "20 8 4 12 10 14")
-        print(bst.traverse_inorder() == "4 8 10 12 14 20")
-        print(bst.traverse_postorder() == "4 10 14 12 8 20")
+        print(bst.get_height() == 3)
 
         print("DELETE tests")
         # 4.2 u is the root w 1 child: left
@@ -390,6 +409,10 @@ if __name__ == "__main__":
     lst = [16] # root only 
     bst = constructBST(lst)
     if bst:
+        print(bst.traverse_preorder() == "16")
+        print(bst.traverse_inorder() == "16")
+        print(bst.traverse_postorder() == "16")
+
         par, u = bst.get_min()
         print(f'{par == None, u.data == 16}')
         par, u = bst.get_max()
@@ -401,9 +424,7 @@ if __name__ == "__main__":
         par, u = bst.search(16)
         print(f'{par == None}, {u.data == 16}')
 
-        print(bst.traverse_preorder() == "16")
-        print(bst.traverse_inorder() == "16")
-        print(bst.traverse_postorder() == "16")
+        print(bst.get_height() == 0)
 
         print("DELETE tests")
         bst.delete(16)
